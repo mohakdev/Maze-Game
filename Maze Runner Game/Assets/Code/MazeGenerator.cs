@@ -66,76 +66,113 @@ public class MazeGenerator : MonoBehaviour
             }
         }
     }
+
+    private bool UnvisitedNeighbors()
+    {
+        //check up for unvisited neighbors
+        if (IsCellUnVisited(CurrentRow - 1, CurrentColoumn))
+        {
+            return true;
+        }
+        //check down for unvisited neighbors
+        if (IsCellUnVisited(CurrentRow + 1, CurrentColoumn))
+        {
+            return true;
+        }
+        //check left for unvisited neighbors
+        if (IsCellUnVisited(CurrentRow, CurrentColoumn + 1))
+        {
+            return true;
+        }
+        //check up for unvisited neighbors
+        if (IsCellUnVisited(CurrentRow, CurrentColoumn - 1))
+        {
+            return true;
+        }
+        return false;
+    }
+    //Doing a boundary check and unvisited check
+    private bool IsCellUnVisited(int row, int col)
+    {
+        if (row >= 0 && row < Rows && col >= 0 && col < Coloumns && !grid[row, col].isVisited)
+        {
+            return true;
+        }
+        return false;
+    }
     void HuntAndKill()
     {
-        grid[CurrentRow, CurrentColoumn].isVisited = true;
-        int direction = Random.Range(0, 4);
-        Debug.Log(direction);
-        //Looks Up
-        if (direction == 0)
+        while (UnvisitedNeighbors())
         {
-            if (CurrentRow > 0 && !grid[CurrentRow - 1, CurrentColoumn].isVisited)
+            grid[CurrentRow, CurrentColoumn].isVisited = true;
+            int direction = Random.Range(0, 4);
+            Debug.Log(direction);
+            //Looks Up
+            if (direction == 0)
             {
-                if (grid[CurrentRow, CurrentColoumn].UpWall)
+                if (IsCellUnVisited(CurrentRow - 1, CurrentColoumn))
                 {
-                    Destroy(grid[CurrentRow, CurrentColoumn].UpWall);
-                }
-                CurrentRow--;
-                grid[CurrentRow, CurrentColoumn].isVisited = true;
-                if (grid[CurrentRow, CurrentColoumn].downWall)
-                {
-                    Destroy(grid[CurrentRow, CurrentColoumn].downWall);
+                    if (grid[CurrentRow, CurrentColoumn].UpWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].UpWall);
+                    }
+                    CurrentRow--;
+                    grid[CurrentRow, CurrentColoumn].isVisited = true;
+                    if (grid[CurrentRow, CurrentColoumn].downWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].downWall);
+                    }
                 }
             }
-        }
-        // Looks Down
-        else if (direction == 1)
-        {
-            if (CurrentRow < Rows - 1 && !grid[CurrentRow + 1, CurrentColoumn].isVisited)
+            // Looks Down
+            else if (direction == 1)
             {
-                if (grid[CurrentRow, CurrentColoumn].downWall)
+                if (IsCellUnVisited(CurrentRow + 1, CurrentColoumn))
                 {
-                    Destroy(grid[CurrentRow, CurrentColoumn].downWall);
-                }
-                CurrentRow++;
-                grid[CurrentRow, CurrentColoumn].isVisited = true;
-                if (grid[CurrentRow, CurrentColoumn].UpWall)
-                {
-                    Destroy(grid[CurrentRow, CurrentColoumn].UpWall);
+                    if (grid[CurrentRow, CurrentColoumn].downWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].downWall);
+                    }
+                    CurrentRow++;
+                    grid[CurrentRow, CurrentColoumn].isVisited = true;
+                    if (grid[CurrentRow, CurrentColoumn].UpWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].UpWall);
+                    }
                 }
             }
-        }
-        //Looks Left
-        else if (direction == 2)
-        {
-            if (CurrentColoumn > 0 && !grid[CurrentRow, CurrentColoumn - 1].isVisited)
+            //Looks Left
+            else if (direction == 2)
             {
-                if (grid[CurrentRow, CurrentColoumn].LeftWall)
+                if (IsCellUnVisited(CurrentRow, CurrentColoumn - 1))
                 {
-                    Destroy(grid[CurrentRow, CurrentColoumn].LeftWall);
-                }
-                CurrentColoumn--;
-                grid[CurrentRow, CurrentColoumn].isVisited = true;
-                if (grid[CurrentRow, CurrentColoumn].RightWall)
-                {
-                    Destroy(grid[CurrentRow, CurrentColoumn].RightWall);
+                    if (grid[CurrentRow, CurrentColoumn].LeftWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].LeftWall);
+                    }
+                    CurrentColoumn--;
+                    grid[CurrentRow, CurrentColoumn].isVisited = true;
+                    if (grid[CurrentRow, CurrentColoumn].RightWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].RightWall);
+                    }
                 }
             }
-        }
-        //Looks Right
-        else if (direction == 3)
-        {
-            if (CurrentColoumn < Coloumns - 1 && !grid[CurrentRow, CurrentColoumn + 1].isVisited)
+            //Looks Right
+            else if (direction == 3)
             {
-                if (grid[CurrentRow, CurrentColoumn].RightWall)
+                if (IsCellUnVisited(CurrentRow, CurrentColoumn + 1))
                 {
-                    Destroy(grid[CurrentRow, CurrentColoumn].RightWall);
-                }
-                CurrentColoumn++;
-                grid[CurrentRow, CurrentColoumn].isVisited = true;
-                if (grid[CurrentRow, CurrentColoumn].LeftWall)
-                {
-                    Destroy(grid[CurrentRow, CurrentColoumn].LeftWall);
+                    if (grid[CurrentRow, CurrentColoumn].RightWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].RightWall);
+                    }
+                    CurrentColoumn++;
+                    grid[CurrentRow, CurrentColoumn].isVisited = true;
+                    if (grid[CurrentRow, CurrentColoumn].LeftWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].LeftWall);
+                    }
                 }
             }
         }
