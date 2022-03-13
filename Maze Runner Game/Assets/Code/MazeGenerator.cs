@@ -74,7 +74,7 @@ public class MazeGenerator : MonoBehaviour
             grid[CurrentRow, CurrentColoumn].isVisited = true;
 
             Walk();
-            //Hunt();
+            Hunt();
         }
     }
 
@@ -181,7 +181,14 @@ public class MazeGenerator : MonoBehaviour
             {
                 if (CurrentRow > 0 && grid[CurrentRow - 1, CurrentColoumn].isVisited)
                 {
-                    Destroy(grid[CurrentRow - 1, CurrentColoumn].downWall);
+                    if (grid[CurrentRow, CurrentColoumn].UpWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].UpWall);
+                    }
+                    if (grid[CurrentRow - 1, CurrentColoumn].downWall)
+                    {
+                        Destroy(grid[CurrentRow - 1, CurrentColoumn].downWall);
+                    }
                     Destroyed = true;
                 }
             }
@@ -190,7 +197,14 @@ public class MazeGenerator : MonoBehaviour
             {
                 if (CurrentRow < Rows - 1 && grid[CurrentRow + 1, CurrentColoumn].isVisited)
                 {
-                    Destroy(grid[CurrentRow + 1, CurrentColoumn].UpWall);
+                    if (grid[CurrentRow, CurrentColoumn].downWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].downWall);
+                    }
+                    if (grid[CurrentRow + 1, CurrentColoumn].UpWall)
+                    {
+                        Destroy(grid[CurrentRow + 1, CurrentColoumn].UpWall);
+                    }
                     Destroyed = true;
                 }
             }
@@ -199,7 +213,14 @@ public class MazeGenerator : MonoBehaviour
             {
                 if (CurrentColoumn > 0 && grid[CurrentRow, CurrentColoumn - 1].isVisited)
                 {
-                    Destroy(grid[CurrentRow, CurrentColoumn - 1].RightWall);
+                    if (grid[CurrentRow, CurrentColoumn].LeftWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].LeftWall);
+                    }
+                    if (grid[CurrentRow, CurrentColoumn - 1].RightWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn - 1].RightWall);
+                    }
                     Destroyed = true;
                 }
             }
@@ -208,7 +229,14 @@ public class MazeGenerator : MonoBehaviour
             {
                 if (CurrentColoumn < Coloumns - 1 && grid[CurrentRow, CurrentColoumn + 1].isVisited)
                 {
-                    Destroy(grid[CurrentRow, CurrentColoumn + 1].LeftWall);
+                    if (grid[CurrentRow, CurrentColoumn].RightWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn].RightWall);
+                    }
+                    if (grid[CurrentRow, CurrentColoumn + 1].LeftWall)
+                    {
+                        Destroy(grid[CurrentRow, CurrentColoumn + 1].LeftWall);
+                    }
                     Destroyed = true;
                 }
             }
