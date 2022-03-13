@@ -51,12 +51,13 @@ public class MazeGenerator : MonoBehaviour
                 new Vector3(j * size + 4.75f, 5.25f, -i * size), Quaternion.Euler(0, 90, 0));
                 RightWall.name = $"RightWall_{i}_{j}";
                 //------------------------------------
-                grid[i, j] = new MazeCellScript();
-                grid[i, j].UpWall = UpWall;
-                grid[i, j].downWall = DownWall;
-                grid[i, j].LeftWall = LeftWall;
-                grid[i, j].RightWall = RightWall;
-
+                grid[i, j] = new MazeCellScript
+                {
+                    UpWall = UpWall,
+                    downWall = DownWall,
+                    LeftWall = LeftWall,
+                    RightWall = RightWall
+                };
                 //Now setting all of them inside a single parent
                 floor.transform.SetParent(transform);
                 LeftWall.transform.SetParent(transform);
@@ -73,48 +74,14 @@ public class MazeGenerator : MonoBehaviour
             grid[CurrentRow, CurrentColoumn].isVisited = true;
 
             Walk();
-            Hunt();
+            //Hunt();
         }
     }
 
-    private bool UnvisitedNeighbors()
-    {
-        //check up for unvisited neighbors
-        if (IsCellUnVisited(CurrentRow - 1, CurrentColoumn))
-        {
-            return true;
-        }
-        //check down for unvisited neighbors
-        if (IsCellUnVisited(CurrentRow + 1, CurrentColoumn))
-        {
-            return true;
-        }
-        //check left for unvisited neighbors
-        if (IsCellUnVisited(CurrentRow, CurrentColoumn + 1))
-        {
-            return true;
-        }
-        //check up for unvisited neighbors
-        if (IsCellUnVisited(CurrentRow, CurrentColoumn - 1))
-        {
-            return true;
-        }
-        return false;
-    }
-    //Doing a boundary check and unvisited check
-    private bool IsCellUnVisited(int row, int col)
-    {
-        if (row >= 0 && row < Rows && col >= 0 && col < Coloumns && !grid[row, col].isVisited)
-        {
-            return true;
-        }
-        return false;
-    }
 
     void Walk()
     {
         int direction = Random.Range(0, 4);
-        Debug.Log(direction);
         //Looks Up
         if (direction == 0)
         {
@@ -186,6 +153,123 @@ public class MazeGenerator : MonoBehaviour
     }
     void Hunt()
     {
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Coloumns; j++)
+            {
+                //Scanning the grid
+                if (!grid[i, j].isVisited && VisitedNeighbors(i, j))
+                {
+                    CurrentRow = i;
+                    CurrentColoumn = j;
+                    grid[CurrentRow, CurrentColoumn].isVisited = true;
+                    DestroyAdjacentWall();
+                    return;
+                }
+            }
+        }
+    }
 
+    private void DestroyAdjacentWall()
+    {
+        bool Destroyed = false;
+        while (!Destroyed)
+        {
+            int direction = Random.Range(0, 4);
+            //check up
+            if (direction == 0)
+            {
+                if (CurrentRow > 0 && grid[CurrentRow - 1, CurrentColoumn].isVisited)
+                {
+                    Destroy(grid[CurrentRow - 1, CurrentColoumn].downWall);
+                    Destroyed = true;
+                }
+            }
+            // check down
+            else if (direction == 1)
+            {
+                if (CurrentRow < Rows - 1 && grid[CurrentRow + 1, CurrentColoumn].isVisited)
+                {
+                    Destroy(grid[CurrentRow + 1, CurrentColoumn].UpWall);
+                    Destroyed = true;
+                }
+            }
+            //check left
+            else if (direction == 2)
+            {
+                if (CurrentColoumn > 0 && grid[CurrentRow, CurrentColoumn - 1].isVisited)
+                {
+                    Destroy(grid[CurrentRow, CurrentColoumn - 1].RightWall);
+                    Destroyed = true;
+                }
+            }
+            //check right
+            else if (direction == 3)
+            {
+                if (CurrentColoumn < Coloumns - 1 && grid[CurrentRow, CurrentColoumn + 1].isVisited)
+                {
+                    Destroy(grid[CurrentRow, CurrentColoumn + 1].LeftWall);
+                    Destroyed = true;
+                }
+            }
+        }
+    }
+
+    private bool UnvisitedNeighbors()
+    {
+        //check up for unvisited neighbors
+        if (IsCellUnVisited(CurrentRow - 1, CurrentColoumn))
+        {
+            return true;
+        }
+        //check down for unvisited neighbors
+        if (IsCellUnVisited(CurrentRow + 1, CurrentColoumn))
+        {
+            return true;
+        }
+        //check left for unvisited neighbors
+        if (IsCellUnVisited(CurrentRow, CurrentColoumn + 1))
+        {
+            return true;
+        }
+        //check up for unvisited neighbors
+        if (IsCellUnVisited(CurrentRow, CurrentColoumn - 1))
+        {
+            return true;
+        }
+        return false;
+    }
+    //Doing a boundary check and unvisited check
+    private bool IsCellUnVisited(int row, int col)
+    {
+        if (row >= 0 && row < Rows && col >= 0 && col < Coloumns && !grid[row, col].isVisited)
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool VisitedNeighbors(int row, int col)
+    {
+        //check up
+        if (row > 0 && grid[row - 1, col].isVisited)
+        {
+            return true;
+        }
+        //check down
+        if (row < Rows - 1 && grid[row + 1, col].isVisited)
+        {
+            return true;
+        }
+        //check left
+        if (col > 0 && grid[row, col - 1].isVisited)
+        {
+            return true;
+        }
+        //check right
+        if (col < Coloumns - 1 && grid[row, col + 1].isVisited)
+        {
+            return true;
+        }
+        return false;
     }
 }
