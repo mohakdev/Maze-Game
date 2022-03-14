@@ -5,8 +5,7 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     public MazeGenerator maze;
-    //Start Method
-    void Start()
+    void Awake()
     {
         string Mode = MainMenu.DifficultyMode;
         if (Mode.Equals("easy"))

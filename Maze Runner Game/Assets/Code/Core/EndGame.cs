@@ -12,7 +12,8 @@ public class EndGame : MonoBehaviour
     {
         if (other.gameObject.Equals(Player))
         {
-            print("Game Ended");
+            Printer.PrintMsg("Game Ended");
+            TimerScript.instance.EndTimer();
         }
     }
 }

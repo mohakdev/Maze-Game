@@ -2,20 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Printer : MonoBehaviour
+public static class Printer
 {
-    // Variables
-
-    //Other Methods
-
-    //Start Method
-    void Start()
+    static bool PrinterOn = true;
+    public static void PrintMsg(string msg)
     {
-        
-    }
-    //Update Method
-    void Update()
-    {
-        
+        if (PrinterOn)
+        {
+            Debug.Log(msg);
+        }
     }
 }

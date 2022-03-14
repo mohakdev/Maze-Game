@@ -19,14 +19,13 @@ public class TimerScript : MonoBehaviour
     {
         timeLabel.text = "00:00:00";
         TimerGoing = false;
-        BeginTimer();
     }
     public void BeginTimer()
     {
         TimerGoing = true;
         elapsedTime = 0f;
         StartCoroutine(UpdateTimer());
-        print("Timer Started");
+        Printer.PrintMsg("Timer Started");
     }
     IEnumerator UpdateTimer()
     {
