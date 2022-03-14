@@ -15,10 +15,15 @@ public class MazeGenerator : MonoBehaviour
     int CurrentRow = 0;
     int CurrentColoumn = 0;
 
-    void Start()
+    public void GenerateMaze()
     {
         CreateGrid();
         HuntAndKill();
+    }
+    public void SetSize(int GridSize)
+    {
+        Rows = GridSize;
+        Coloumns = GridSize;
     }
 
     void CreateGrid()
