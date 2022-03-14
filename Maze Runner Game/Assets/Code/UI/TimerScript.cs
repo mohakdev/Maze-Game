@@ -1,21 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
 {
-    // Variables
-
-    //Other Methods
-
-    //Start Method
-    void Start()
+    public static TimerScript instance;
+    TimeSpan timePlaying;
+    public Text timeLabel;
+    bool TimerGoing;
+    float elapsedTime;
+    private void Awake()
     {
-        
+        instance = this;
     }
-    //Update Method
-    void Update()
+    private void Start()
     {
-        
+        timeLabel.text = "00:00:00";
+        TimerGoing = false;
+        BeginTimer();
+    }
+    public void BeginTimer()
+    {
+        TimerGoing = true;
+        elapsedTime = 0f;
+        StartCoroutine(UpdateTimer());
+        print("Timer Started");
+    }
+    IEnumerator UpdateTimer()
+    {
+        while (TimerGoing)
+        {
+            elapsedTime += Time.deltaTime;
+            timePlaying = TimeSpan.FromSeconds(elapsedTime);
+            string TimeStr = timePlaying.ToString("mm':'ss'.'ff");
+            timeLabel.text = TimeStr;
+            yield return null;
+        }
+    }
+    public void EndTimer()
+    {
+        TimerGoing = false;
     }
 }
