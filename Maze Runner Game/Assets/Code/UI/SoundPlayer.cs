@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 
-public class MenuSounds : MonoBehaviour
+public class SoundPlayer : MonoBehaviour
 {
     // Variables
-    public static MenuSounds Instance;
+    public static SoundPlayer Instance;
     AudioSource AudioPlayer;
     //Other Methods
     private void Awake()

@@ -12,8 +12,6 @@ public class TransitionScript : MonoBehaviour
     {
         Anim = GetComponent<Animator>();
         StartCoroutine(BeginLoading());
-
-        Printer.PrintMsg("Triggered");
     }
     private void Update()
     {
@@ -26,7 +24,7 @@ public class TransitionScript : MonoBehaviour
     IEnumerator DeleteObject()
     {
         yield return new WaitForSeconds(5);
-        Printer.PrintMsg("Object Deleted");
+        //Printer.PrintMsg("Object Deleted");
         Destroy(gameObject);
     }
     IEnumerator BeginLoading()
