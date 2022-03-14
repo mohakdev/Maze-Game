@@ -15,7 +15,6 @@ public class MazeGenerator : MonoBehaviour
     int CurrentRow = 0;
     int CurrentColoumn = 0;
 
-    //Start Method
     void Start()
     {
         CreateGrid();

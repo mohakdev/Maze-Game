@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
     // Variables
-
+    public AudioClip HoverSound;
     //Other Methods
     public void QuitGame()
     {
@@ -15,6 +16,7 @@ public class MainMenu : MonoBehaviour
     public void OnHoverEnter(Text Label)
     {
         Label.fontSize = 130;
+        //MenuSounds.Instance.PlaySound(HoverSound);
     }
     public void OnHoverExit(Text Label)
     {
