@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public float sensitivity;
+    public static float sensitivity;
     public Transform PlayerBody;
     float xRotation = 0f;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        sensitivity = PlayerPrefs.GetFloat("Sens", 100);
+        sensitivity = PlayerPrefs.GetFloat("Senstivity", 100);
+        Printer.OnlyPrintMsg(sensitivity.ToString());
     }
 
 
@@ -27,5 +28,10 @@ public class PlayerCamera : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         PlayerBody.Rotate(Vector3.up * mouseX);
 
+    }
+    public static void NewSenstivity()
+    {
+        sensitivity = PlayerPrefs.GetFloat("Senstivity", 100);
+        Printer.OnlyPrintMsg(sensitivity.ToString());
     }
 }
