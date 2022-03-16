@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         controller = GetComponent<CharacterController>();
+
         if (controller.isGrounded && Velocity.y < 0)
         {
             Velocity.y = -2f;
@@ -22,12 +23,10 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * Time.deltaTime * speed);
-
-
-
         Velocity.y += gravity * Time.deltaTime;
-        controller.Move(Velocity * Time.deltaTime);
+        move = move * speed * Time.deltaTime;
+        move.y = Velocity.y * Time.deltaTime;
+        controller.Move(move);
 
         if (Input.GetButtonDown("Jump") && controller.isGrounded)
         {

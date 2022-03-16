@@ -868,6 +868,7 @@ GameObject:
   - component: {fileID: 406997302}
   - component: {fileID: 406997307}
   - component: {fileID: 406997305}
+  - component: {fileID: 406997306}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -887,7 +888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4288aa3c23fde49a9378e4b74d97f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 11
   jumpHeight: 3
   gravity: -9.81
 --- !u!143 &406997303
@@ -937,6 +938,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maze: {fileID: 520872483}
+--- !u!114 &406997306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406997301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b4e3f9f0980ba742871a55226c16395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &406997307
 AudioSource:
   m_ObjectHideFlags: 0

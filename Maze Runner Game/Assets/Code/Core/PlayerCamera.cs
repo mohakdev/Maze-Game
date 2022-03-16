@@ -12,7 +12,6 @@ public class PlayerCamera : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         sensitivity = PlayerPrefs.GetFloat("Senstivity", 100);
-        Printer.OnlyPrintMsg(sensitivity.ToString());
     }
 
 

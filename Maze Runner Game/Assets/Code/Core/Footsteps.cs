@@ -15,9 +15,7 @@ public class Footsteps : MonoBehaviour
     //Update Method
     void Update()
     {
-
-        Printer.OnlyPrintMsg("Magnitude:" + cc.velocity.magnitude.ToString());
-        if (cc.isGrounded && cc.velocity.magnitude > 2f && !audioPlayer.isPlaying)
+        if (cc.isGrounded && cc.velocity.magnitude > 0 && !audioPlayer.isPlaying)
         {
             audioPlayer.Play();
         }
