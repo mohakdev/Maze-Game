@@ -15,6 +15,8 @@ public class MazeGenerator : MonoBehaviour
     int CurrentRow = 0;
     int CurrentColoumn = 0;
 
+    bool ScanComplete;
+
     public void GenerateMaze()
     {
         CreateGrid();
@@ -76,9 +78,11 @@ public class MazeGenerator : MonoBehaviour
         while (UnvisitedNeighbors())
         {
             grid[CurrentRow, CurrentColoumn].isVisited = true;
-
-            Walk();
-            Hunt();
+            while (!ScanComplete)
+            {
+                Walk();
+                Hunt();
+            }
         }
     }
 
@@ -157,6 +161,7 @@ public class MazeGenerator : MonoBehaviour
     }
     void Hunt()
     {
+        ScanComplete = true;
         for (int i = 0; i < Rows; i++)
         {
             for (int j = 0; j < Coloumns; j++)
@@ -164,6 +169,7 @@ public class MazeGenerator : MonoBehaviour
                 //Scanning the grid
                 if (!grid[i, j].isVisited && VisitedNeighbors(i, j))
                 {
+                    ScanComplete = false;
                     CurrentRow = i;
                     CurrentColoumn = j;
                     grid[CurrentRow, CurrentColoumn].isVisited = true;
