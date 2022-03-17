@@ -6,13 +6,14 @@ using UnityEngine;
 public class PauseScript : MonoBehaviour
 {
     public GameObject PauseScreen;
+    public GameObject Settings;
+    public GameObject FinshedScreen;
     bool isActive = false;
     //Update Method
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !Settings.activeSelf && !FinshedScreen.activeSelf)
         {
-            print(isActive);
             if (!isActive)
             {
                 PauseScreen.SetActive(true);
