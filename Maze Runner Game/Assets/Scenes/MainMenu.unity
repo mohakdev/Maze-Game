@@ -8308,6 +8308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3eba8a161fcebd4fb383718ca3d4865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AudioSources:
+  - {fileID: 482046566}
   SensSlider: {fileID: 586168927}
   VolSlider: {fileID: 300283108}
 --- !u!1 &1345887470

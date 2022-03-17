@@ -1530,6 +1530,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3eba8a161fcebd4fb383718ca3d4865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AudioSources:
+  - {fileID: 406997307}
+  - {fileID: 2075960108}
   SensSlider: {fileID: 217249275}
   VolSlider: {fileID: 1683001768}
 --- !u!114 &826824314

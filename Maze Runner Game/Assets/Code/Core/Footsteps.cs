@@ -11,6 +11,7 @@ public class Footsteps : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         audioPlayer = GetComponent<AudioSource>();
+        audioPlayer.volume = PlayerPrefs.GetFloat("Volume", 1);
     }
     //Update Method
     void Update()

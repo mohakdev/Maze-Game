@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SettingsScript : MonoBehaviour
 {
     // Variables
+    public AudioSource[] AudioSources;
     float Sensitivity;
     float Volume;
     public Slider SensSlider;
@@ -18,6 +19,11 @@ public class SettingsScript : MonoBehaviour
 
         SensSlider.value = Sensitivity;
         VolSlider.value = Volume;
+        //Since we loaded into a new scene setting audio of all AudioSources.
+        foreach (AudioSource audioPlayer in AudioSources)
+        {
+            audioPlayer.volume = Volume;
+        }
     }
     //This runs when player changes the default value of Senstivity slider
     public void SensSliderChanged(float sens)
@@ -29,7 +35,10 @@ public class SettingsScript : MonoBehaviour
     public void VolumeSliderChanged(float vol)
     {
         PlayerPrefs.SetFloat("Volume", vol);
-        PlayerCamera.NewSenstivity();
+        foreach (AudioSource audioPlayer in AudioSources)
+        {
+            audioPlayer.volume = vol;
+        }
     }
 
     public void OnHoverEnter(Text Label)
