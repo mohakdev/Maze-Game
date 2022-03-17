@@ -5,15 +5,16 @@ using UnityEngine;
 public class EndGame : MonoBehaviour
 {
     // Variables
-    public GameObject Player;
+    public GameObject ExitGate;
+    public GameObject EndScreen;
 
-    //Methods
-    private void OnTriggerEnter(Collider other)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (other.gameObject.Equals(Player))
+        if (hit.gameObject.Equals(ExitGate))
         {
-            Printer.PrintMsg("Game Ended");
+            Cursor.lockState = CursorLockMode.None;
             TimerScript.instance.EndTimer();
+            EndScreen.SetActive(true);
         }
     }
 }

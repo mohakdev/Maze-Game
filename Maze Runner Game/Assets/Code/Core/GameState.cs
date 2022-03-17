@@ -8,9 +8,9 @@ public class GameState : MonoBehaviour
      Set The Maze Generation Size and 
     Sets Player Position*/
     public MazeGenerator maze;
-    Vector3 PlayerEasyPos = new Vector3(90, 50, -80);
-    Vector3 PlayerMedPos = new Vector3(190, 50, -170);
-    Vector3 PlayerHardPos = new Vector3(290, 50, -280);
+    Vector3 PlayerEasyPos = new Vector3(90, 5, -80);
+    Vector3 PlayerMedPos = new Vector3(190, 5, -170);
+    Vector3 PlayerHardPos = new Vector3(290, 5, -280);
     void Awake()
     {
         string Mode = MainMenu.DifficultyMode;
